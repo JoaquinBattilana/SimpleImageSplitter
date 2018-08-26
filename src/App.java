@@ -16,7 +16,6 @@ public class App extends Application {
         Scene scene= new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();
-        System.out.println("prueba");
     }
     public static void main(String args[]){
         launch(args);
