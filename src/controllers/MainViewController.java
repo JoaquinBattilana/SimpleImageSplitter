@@ -64,25 +64,23 @@ public class MainViewController implements Initializable {
             File auxFile = dChooser.showDialog(stage);
             for(File file:files) {
                 BufferedImage source = ImageIO.read(file);
-                int verticalExcess = source.getWidth()%Integer.parseInt(VerticalTextArea.getText();
+                int verticalExcess = source.getWidth()%Integer.parseInt(VerticalTextArea.getText());
                 int horizontalExcess = source.getHeight()%Integer.parseInt(HorizontalTextArea.getText());
                 int parseSizeVertical = source.getWidth()/Integer.parseInt(VerticalTextArea.getText());
-                int parseSizeHorizontal = source.getHeight()/Integer.parseInt(HorizontalTextArea.getText()));
-                if(aux==0) {
-                    ImageIO.write(source.getSubimage(0, 0, parseSize+verticalExcess, source.getHeight()), "png", new File(s.toString()))
-                }
-                else{
-                    ImageIO.write(source.getSubimage(0, 0, parseSize+verticalExcess, source.getHeight()), "png", new File(s.toString()))
-                }
-                    for (int i = 1; i < Integer.parseInt(VerticalTextArea.getText());i++) {
-                        for(int j= 1; j < Integer.parseInt(HorizontalTextArea.getText()));j++){
-                            StringBuffer s = new StringBuffer();
-                            s.append(auxFile.getAbsolutePath());
-                            s.append("\\" + file.getName().split("\\.")[0]);
-                            s.append("_" + (Integer.parseInt(VerticalTextArea.getText()+HorizontalTextArea.getText()) - i - j) + ".png");
+                int parseSizeHorizontal = source.getHeight()/Integer.parseInt(HorizontalTextArea.getText());
+                for (int i = 0; i < Integer.parseInt(VerticalTextArea.getText());i++) {
+                    for(int j= 0; j < Integer.parseInt(HorizontalTextArea.getText());j++){
+                        StringBuffer s = new StringBuffer();
+                        s.append(auxFile.getAbsolutePath());
+                        s.append("\\" + file.getName().split("\\.")[0]);
+                        s.append("_" + (Integer.parseInt(VerticalTextArea.getText()+HorizontalTextArea.getText()) - i - j) + ".png");
+                        if(horizontalExcess==0 && verticalExcess==0)
+                            ImageIO.write(source.getSubimage(i * parseSizeVertical, j * parseSizeHorizontal, parseSizeVertical, parseSizeHorizontal), "png", new File(s.toString()));
+                        else if (i==0 || j==0){
                             ImageIO.write(source.getSubimage(i * parseSizeVertical + verticalExcess, j * parseSizeHorizontal + horizontalExcess , parseSizeVertical, parseSizeHorizontal), "png", new File(s.toString()));
                         }
                     }
+                }
             }
         }
         catch(Exception e){
