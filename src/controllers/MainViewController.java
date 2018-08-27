@@ -64,16 +64,21 @@ public class MainViewController implements Initializable {
             File auxFile = dChooser.showDialog(stage);
             for(File file:files) {
                 BufferedImage source = ImageIO.read(file);
+                int aux = source.getWidth()%Integer.parseInt(VerticalTextArea.getText();
                 int parseSize = source.getWidth()/Integer.parseInt(VerticalTextArea.getText());
-                if(source.getWidth()%Integer.parseInt(VerticalTextArea.getText())==0) {
-                    for (int i = 0; i < Integer.parseInt(VerticalTextArea.getText());i++) {
+                if(aux==0) {
+                    ImageIO.write(source.getSubimage(0, 0, parseSize+aux, source.getHeight()), "png", new File(s.toString()))
+                }
+                else{
+                    ImageIO.write(source.getSubimage(0, 0, parseSize+aux, source.getHeight()), "png", new File(s.toString()))
+                }
+                    for (int i = 1; i < Integer.parseInt(VerticalTextArea.getText());i++) {
                         StringBuffer s = new StringBuffer();
                         s.append(auxFile.getAbsolutePath());
                         s.append("\\"+file.getName().split("\\.")[0]);
                         s.append("_"+(Integer.parseInt(VerticalTextArea.getText())-i)+".png");
-                        ImageIO.write(source.getSubimage(i*parseSize, 0, parseSize, source.getHeight()), "png", new File(s.toString()));
+                        ImageIO.write(source.getSubimage(i*parseSize+aux, 0, parseSize, source.getHeight()), "png", new File(s.toString()));
                     }
-                }
             }
         }
         catch(Exception e){
