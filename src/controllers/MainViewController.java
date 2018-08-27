@@ -73,7 +73,7 @@ public class MainViewController implements Initializable {
                         StringBuffer s = new StringBuffer();
                         s.append(auxFile.getAbsolutePath());
                         s.append("\\" + file.getName().split("\\.")[0]);
-                        s.append("_" + (Integer.parseInt(VerticalTextArea.getText()+HorizontalTextArea.getText()) - i - j) + ".png");
+                        s.append("_" + (Integer.parseInt(VerticalTextArea.getText())+Integer.parseInt(HorizontalTextArea.getText()) - i - j) + ".png");
                         if(horizontalExcess==0 && verticalExcess==0)
                             ImageIO.write(source.getSubimage(i * parseSizeVertical, j * parseSizeHorizontal, parseSizeVertical, parseSizeHorizontal), "png", new File(s.toString()));
                         else if (i==0 || j==0){
