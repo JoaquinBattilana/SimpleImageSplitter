@@ -62,23 +62,25 @@ public class MainViewController implements Initializable {
             DirectoryChooser dChooser = new DirectoryChooser();
             Stage stage = new Stage();
             File auxFile = dChooser.showDialog(stage);
+            String directory = auxFile.getAbsolutePath();
             for(File file:files) {
                 BufferedImage source = ImageIO.read(file);
                 int verticalExcess = source.getWidth()%Integer.parseInt(VerticalTextArea.getText());
                 int horizontalExcess = source.getHeight()%Integer.parseInt(HorizontalTextArea.getText());
                 int parseSizeVertical = source.getWidth()/Integer.parseInt(VerticalTextArea.getText());
                 int parseSizeHorizontal = source.getHeight()/Integer.parseInt(HorizontalTextArea.getText());
-                for (int i = 0; i < Integer.parseInt(VerticalTextArea.getText());i++) {
-                    for(int j= 0; j < Integer.parseInt(HorizontalTextArea.getText());j++){
-                        StringBuffer s = new StringBuffer();
-                        s.append(auxFile.getAbsolutePath());
-                        s.append("\\" + file.getName().split("\\.")[0]);
-                        s.append("_" + (Integer.parseInt(VerticalTextArea.getText())+Integer.parseInt(HorizontalTextArea.getText()) - i - j) + ".png");
+                int cols = Integer.parseInt(VerticalTextArea.getText());
+                int rows = Integer.parseInt(HorizontalTextArea.getText());
+                int slices = cols + rows;
+                for (int i = 0; i < cols;i++) {
+                    for(int j= 0; j < rows;j++){
+                        File aux = new File(directory+"/"+file.getName().split("\\.")[0]+"_"+(slices - i - j));
                         if(horizontalExcess==0 && verticalExcess==0)
-                            ImageIO.write(source.getSubimage(i * parseSizeVertical, j * parseSizeHorizontal, parseSizeVertical, parseSizeHorizontal), "png", new File(s.toString()));
-                        else if (i==0 || j==0){
-                            ImageIO.write(source.getSubimage(i * parseSizeVertical + verticalExcess, j * parseSizeHorizontal + horizontalExcess , parseSizeVertical, parseSizeHorizontal), "png", new File(s.toString()));
-                        }
+                            ImageIO.write(source.getSubimage(i * parseSizeVertical, j * parseSizeHorizontal, parseSizeVertical, parseSizeHorizontal), "png", aux);
+                        else if (i==0 || j==0)
+                            ImageIO.write(source.getSubimage(i * parseSizeVertical, j * parseSizeHorizontal, parseSizeVertical + verticalExcess, parseSizeHorizontal + horizontalExcess), ".png", aux);
+                        else
+                            ImageIO.write(source.getSubimage(i * parseSizeVertical + verticalExcess, j * parseSizeHorizontal + horizontalExcess , parseSizeVertical, parseSizeHorizontal), ".png", aux);
                     }
                 }
             }
