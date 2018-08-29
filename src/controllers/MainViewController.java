@@ -74,13 +74,13 @@ public class MainViewController implements Initializable {
                 int slices = cols + rows;
                 for (int i = 0; i < cols;i++) {
                     for(int j= 0; j < rows;j++){
-                        File aux = new File(directory+"/"+file.getName().split("\\.")[0]+"_"+(slices - i - j));
+                        File aux = new File(directory+"/"+file.getName().split("\\.")[0]+"_"+(slices - i - j)+".png");
                         if(horizontalExcess==0 && verticalExcess==0)
                             ImageIO.write(source.getSubimage(i * parseSizeVertical, j * parseSizeHorizontal, parseSizeVertical, parseSizeHorizontal), "png", aux);
                         else if (i==0 || j==0)
-                            ImageIO.write(source.getSubimage(i * parseSizeVertical, j * parseSizeHorizontal, parseSizeVertical + verticalExcess, parseSizeHorizontal + horizontalExcess), ".png", aux);
+                            ImageIO.write(source.getSubimage(i * parseSizeVertical, j * parseSizeHorizontal, parseSizeVertical + verticalExcess, parseSizeHorizontal + horizontalExcess), "png", aux);
                         else
-                            ImageIO.write(source.getSubimage(i * parseSizeVertical + verticalExcess, j * parseSizeHorizontal + horizontalExcess , parseSizeVertical, parseSizeHorizontal), ".png", aux);
+                            ImageIO.write(source.getSubimage(i * parseSizeVertical + verticalExcess, j * parseSizeHorizontal + horizontalExcess , parseSizeVertical, parseSizeHorizontal), "png", aux);
                     }
                 }
             }
